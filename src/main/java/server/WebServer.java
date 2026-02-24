@@ -118,6 +118,8 @@ public class WebServer {
                 return getAboutPage();
             } else if (path.equals("/contact")) {
                 return getContactPage();
+            } else if (path.equals("/chapter")) {
+                return getChapterPage();
             } else {
                 return get404Page(path);
             }
@@ -150,6 +152,7 @@ public class WebServer {
                     "            <a href=\"/\">Trang Chủ</a>\n" +
                     "            <a href=\"/about\">Về Chúng Tôi</a>\n" +
                     "            <a href=\"/contact\">Liên Hệ</a>\n" +
+                    "            <a href=\"/chapter\">📖 Đọc Chương Trình</a>\n" +
                     "        </nav>\n" +
                     "        <p><small>Thời gian phục vụ: " + getCurrentDateTime() + "</small></p>\n" +
                     "    </div>\n" +
@@ -229,6 +232,122 @@ public class WebServer {
                     "            <strong>Loại giao tiếp:</strong> TCP Socket\n" +
                     "        </div>\n" +
                     "        <p><a href=\"/\">← Quay lại trang chủ</a></p>\n" +
+                    "    </div>\n" +
+                    "</body>\n" +
+                    "</html>";
+            
+            HttpResponse response = new HttpResponse(200, "OK", html);
+            response.addHeader("Content-Type", "text/html; charset=UTF-8");
+            return response;
+        }
+        
+        /**
+         * Trang Chapter - Đọc chương trình
+         */
+        private HttpResponse getChapterPage() {
+            String html = "<!DOCTYPE html>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "    <meta charset=\"UTF-8\">\n" +
+                    "    <title>Đọc Chương Trình</title>\n" +
+                    "    <style>\n" +
+                    "        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; line-height: 1.6; }\n" +
+                    "        h1 { color: #333; border-bottom: 3px solid #0066cc; padding-bottom: 10px; }\n" +
+                    "        h2 { color: #0066cc; margin-top: 20px; }\n" +
+                    "        h3 { color: #555; }\n" +
+                    "        a { color: #0066cc; text-decoration: none; margin-right: 10px; }\n" +
+                    "        a:hover { text-decoration: underline; }\n" +
+                    "        .info { background-color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; }\n" +
+                    "        .chapter-content { background-color: #f9f9f9; padding: 15px; border-left: 4px solid #0066cc; margin: 15px 0; }\n" +
+                    "        .code-block { background-color: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', monospace; margin: 10px 0; }\n" +
+                    "        .highlight { background-color: #ffffcc; padding: 2px 5px; }\n" +
+                    "        ul { margin-left: 20px; }\n" +
+                    "        li { margin: 8px 0; }\n" +
+                    "    </style>\n" +
+                    "</head>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "    <div class=\"info\">\n" +
+                    "        <h1>📖 Đọc Chương Trình - UMA Browser</h1>\n" +
+                    "        <p><em>Tìm hiểu cách hoạt động của trình duyệt web Java</em></p>\n" +
+                    "        \n" +
+                    "        <h2>Chương 1: Kiến Trúc Hệ Thống</h2>\n" +
+                    "        <div class=\"chapter-content\">\n" +
+                    "            <h3>1.1 Mô Hình Client-Server</h3>\n" +
+                    "            <p>UMA Browser sử dụng mô hình <span class=\"highlight\">Client-Server</span> với giao thức TCP/IP:</p>\n" +
+                    "            <ul>\n" +
+                    "                <li><strong>Server (WebServer.java):</strong> Lắng nghe trên port 9090, xử lý các yêu cầu HTTP</li>\n" +
+                    "                <li><strong>Client (BrowserApplication.java):</strong> Giao diện JavaFX, gửi yêu cầu và hiển thị nội dung</li>\n" +
+                    "                <li><strong>Giao thức:</strong> TCP Socket với Object Serialization</li>\n" +
+                    "            </ul>\n" +
+                    "        </div>\n" +
+                    "        \n" +
+                    "        <h2>Chương 2: Luồng Xử Lý Request</h2>\n" +
+                    "        <div class=\"chapter-content\">\n" +
+                    "            <h3>2.1 Quy Trình Gửi/Nhận Dữ Liệu</h3>\n" +
+                    "            <ol>\n" +
+                    "                <li>User nhập URL và nhấn \"Go\"</li>\n" +
+                    "                <li>Client tạo đối tượng <code>HttpRequest</code></li>\n" +
+                    "                <li>Request được serialize thành byte stream</li>\n" +
+                    "                <li>Gửi qua TCP Socket đến Server</li>\n" +
+                    "                <li>Server deserialize và xử lý request</li>\n" +
+                    "                <li>Server tạo <code>HttpResponse</code> với nội dung HTML</li>\n" +
+                    "                <li>Response được serialize và gửi về Client</li>\n" +
+                    "                <li>Client deserialize và hiển thị nội dung</li>\n" +
+                    "            </ol>\n" +
+                    "        </div>\n" +
+                    "        \n" +
+                    "        <h2>Chương 3: Ví Dụ Code</h2>\n" +
+                    "        <div class=\"chapter-content\">\n" +
+                    "            <h3>3.1 Tạo HTTP Request</h3>\n" +
+                    "            <div class=\"code-block\">\n" +
+                    "HttpRequest request = new HttpRequest(\"GET\", url);\n" +
+                    "request.addHeader(\"User-Agent\", \"UMA-Browser/1.0\");\n" +
+                    "HttpResponse response = httpClient.sendRequest(request);\n" +
+                    "            </div>\n" +
+                    "            \n" +
+                    "            <h3>3.2 Xử Lý Request Trên Server</h3>\n" +
+                    "            <div class=\"code-block\">\n" +
+                    "String path = request.getPath();\n" +
+                    "if (path.equals(\"/\")) {\n" +
+                    "    return getHomePage();\n" +
+                    "} else if (path.equals(\"/chapter\")) {\n" +
+                    "    return getChapterPage();\n" +
+                    "}\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "        \n" +
+                    "        <h2>Chương 4: Các Tính Năng Chính</h2>\n" +
+                    "        <div class=\"chapter-content\">\n" +
+                    "            <ul>\n" +
+                    "                <li>✅ <strong>TCP Socket Communication:</strong> Giao tiếp tin cậy giữa client và server</li>\n" +
+                    "                <li>✅ <strong>Multi-threading:</strong> Server xử lý nhiều client đồng thời</li>\n" +
+                    "                <li>✅ <strong>Object Serialization:</strong> Chuyển đổi objects thành byte stream</li>\n" +
+                    "                <li>✅ <strong>JavaFX GUI:</strong> Giao diện người dùng hiện đại</li>\n" +
+                    "                <li>✅ <strong>HTTP Protocol:</strong> Hỗ trợ GET/POST requests</li>\n" +
+                    "            </ul>\n" +
+                    "        </div>\n" +
+                    "        \n" +
+                    "        <h2>Chương 5: Mở Rộng Tính Năng</h2>\n" +
+                    "        <div class=\"chapter-content\">\n" +
+                    "            <p>Bạn có thể mở rộng UMA Browser với:</p>\n" +
+                    "            <ul>\n" +
+                    "                <li>🔧 Thêm các trang mới</li>\n" +
+                    "                <li>🔧 Hỗ trợ POST requests với form data</li>\n" +
+                    "                <li>🔧 Thêm cookie và session management</li>\n" +
+                    "                <li>🔧 Cải thiện HTML rendering với WebView</li>\n" +
+                    "                <li>🔧 Thêm HTTPS support</li>\n" +
+                    "                <li>🔧 Implement caching mechanism</li>\n" +
+                    "            </ul>\n" +
+                    "        </div>\n" +
+                    "        \n" +
+                    "        <p style=\"margin-top: 30px;\">\n" +
+                    "            <a href=\"/\">← Quay lại trang chủ</a> |\n" +
+                    "            <a href=\"/about\">Về chúng tôi</a> |\n" +
+                    "            <a href=\"/contact\">Liên hệ</a>\n" +
+                    "        </p>\n" +
+                    "        \n" +
+                    "        <p><small>Thời gian phục vụ: " + getCurrentDateTime() + "</small></p>\n" +
                     "    </div>\n" +
                     "</body>\n" +
                     "</html>";
