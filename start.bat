@@ -180,7 +180,7 @@ echo.
 echo 📖 HƯỚNG DẪN KHỞI ĐỘNG
 echo ════════════════════════════════════════════════════════════
 echo.
-echo BẦU TIÊN LẦN CHẠY:
+echo ƯU TIÊN LẦN ĐẦU CHẠY:
 echo   1. Chọn "4" (Build Project) - tải dependencies
 echo   2. Chọn "1" (Start Server)
 echo   3. Mở CMD mới: Win+R → cmd → Enter
