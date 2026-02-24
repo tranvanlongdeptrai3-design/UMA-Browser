@@ -46,7 +46,7 @@ echo   5️⃣  Xem Hướng Dẫn
 echo   6️⃣  Thoát
 echo.
 
-set /p choice="👉 Nhập lựa chọn (1-6): "
+set /p choice=👉 Nhập lựa chọn [1-6]: 
 
 if "%choice%"=="1" goto start_server
 if "%choice%"=="2" goto start_client
@@ -180,7 +180,7 @@ echo.
 echo 📖 HƯỚNG DẪN KHỞI ĐỘNG
 echo ════════════════════════════════════════════════════════════
 echo.
-echo BẦU TIÊN LẦN CHẠY:
+echo ƯU TIÊN LẦN ĐẦU CHẠY:
 echo   1. Chọn "4" (Build Project) - tải dependencies
 echo   2. Chọn "1" (Start Server)
 echo   3. Mở CMD mới: Win+R → cmd → Enter
