@@ -1,12 +1,12 @@
 # 📑 INDEX - UMA Browser Project
 
-*Danh sách đầy đủ tất cả files và tài liệu*
+## Danh sách đầy đủ tất cả files và tài liệu
 
 ---
 
 ## 📂 CẤU TRÚC DỰ ÁN
 
-```
+```text
 UMA-Browser_no.1/
 │
 ├── 📄 Tài Liệu (Documentation)
@@ -40,16 +40,20 @@ UMA-Browser_no.1/
 
 ## 📄 TÀI LIỆU CHI TIẾT
 
-### 🚀 **Để bắt đầu lập tức:**
+### 🚀 Để bắt đầu lập tức
+
 👉 [QUICK_START.md](QUICK_START.md) - Chỉ 3 bước, 5 phút!
 
-### 📖 **Để hiểu chi tiết:**
+### 📖 Để hiểu chi tiết
+
 👉 [README.md](README.md) - Hướng dẫn hoàn chỉnh, khái niệm, kiểm thử
 
-### ⚙️ **Để cài đặt bước-bước:**
+### ⚙️ Để cài đặt bước-bước
+
 👉 [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) - JDK, Maven, cài sự cố
 
-### 🏗️ **Để hiểu kiến trúc:**
+### 🏗️ Để hiểu kiến trúc
+
 👉 [ARCHITECTURE.md](ARCHITECTURE.md) - TCP, Client-Server, Serialization
 
 ---
@@ -58,10 +62,12 @@ UMA-Browser_no.1/
 
 ### Server (`src/main/java/server/`)
 
-#### **WebServer.java** (570 dòng)
+#### WebServer.java (570 dòng)
+
 Máy chủ TCP lắng nghe port 9090
 
 **Tính năng chính:**
+
 - ServerSocket lắng nghe clients
 - Multi-threaded handling (ClientHandler)
 - 5 trang HTML có sẵn
@@ -69,12 +75,14 @@ Máy chủ TCP lắng nghe port 9090
 - Xử lý lỗi
 
 **Các page khả dụng:**
+
 - `/` - Trang chủ
 - `/about` - Về chúng tôi
 - `/contact` - Liên hệ
 - `/notfound` - Error 404
 
 **Class chính:**
+
 ```java
 public class WebServer {
     public void start() { ... }
@@ -89,16 +97,19 @@ private static class ClientHandler implements Runnable { ... }
 
 ### Client (`src/main/java/client/`)
 
-#### **HttpClient.java** (80 dòng)
+#### HttpClient.java (80 dòng)
+
 Client TCP kết nối đến server
 
 **Tính năng chính:**
+
 - Tạo Socket connection
 - Object serialization
 - Get/Post requests
 - Response receiving
 
 **Methods:**
+
 ```java
 public class HttpClient {
     public HttpResponse sendRequest(HttpRequest request) { ... }
@@ -107,16 +118,19 @@ public class HttpClient {
 }
 ```
 
-#### **BrowserApplication.java** (450 dòng)
+#### BrowserApplication.java (450 dòng)
+
 Giao diện JavaFX cho trình duyệt
 
 **UI Components:**
+
 - Toolbar (Back, Forward, Refresh, Home, Server selector)
 - Address Bar (URL input + Go button)
 - Content Area (TextArea để hiển thị HTML)
 - Status Bar (Trạng thái)
 
 **Public Methods:**
+
 ```java
 public class BrowserApplication extends Application {
     @Override public void start(Stage primaryStage) { ... }
@@ -129,10 +143,12 @@ public class BrowserApplication extends Application {
 
 ### Utilities (`src/main/java/util/`)
 
-#### **HttpRequest.java** (110 dòng)
+#### HttpRequest.java (110 dòng)
+
 Model cho HTTP Request
 
 **Fields:**
+
 ```java
 private String method;              // GET, POST
 private String url;                 // Full URL
@@ -142,10 +158,12 @@ private Map<String, String> headers;
 private String body;
 ```
 
-#### **HttpResponse.java** (90 dòng)
+#### HttpResponse.java (90 dòng)
+
 Model cho HTTP Response
 
 **Fields:**
+
 ```java
 private int statusCode;             // 200, 404
 private String statusMessage;       // OK, Not Found
@@ -158,10 +176,12 @@ private String body;                // HTML content
 
 ## 🔧 CONFIGURATION FILE
 
-### **pom.xml** (90 dòng)
+### pom.xml (90 dòng)
+
 Maven Project Object Model
 
 **Key sections:**
+
 ```xml
 <project>
   <groupId>com.umabrowser</groupId>
@@ -182,10 +202,12 @@ Maven Project Object Model
 ```
 
 **Plugins:**
+
 - maven-compiler-plugin (Java 11)
 - javafx-maven-plugin (run client)
 
 **Dependencies:**
+
 - javafx-controls
 - javafx-fxml
 - javafx-web
@@ -195,27 +217,35 @@ Maven Project Object Model
 
 ## 🚀 SCRIPT FILES
 
-### **run_server.bat**
+### run_server.bat
+
 **Để:** Chạy Web Server trên Windows
-**Làm:** 
+
+**Làm:**
+
 1. Kiểm tra Java & Maven
 2. Compile (nếu cần)
 3. Chạy server
 
 **Cách dùng:**
+
 ```bash
 cd d:\lập trình mạng\UMA-Browser_no.1
 run_server.bat
 ```
 
-### **run_client.bat**
+### run_client.bat
+
 **Để:** Chạy Browser Client trên Windows
-**Làm:** 
+
+**Làm:**
+
 1. Kiểm tra Java & Maven
 2. Compile (nếu cần)
 3. Chạy client GUI
 
 **Cách dùng:**
+
 ```bash
 run_client.bat
 ```
@@ -225,7 +255,7 @@ run_client.bat
 ## 📊 PROJECT STATISTICS
 
 | Metric | Value |
-|--------|-------|
+| --- | --- |
 | Total Lines of Code | ~1,500 |
 | Java Classes | 5 |
 | Documentation Pages | 5 |
@@ -238,8 +268,9 @@ run_client.bat
 
 ## 🎯 FLOW DỰ ÁN
 
-### Development Flow:
-```
+### Development Flow
+
+```text
 1. User mở Browser (BrowserApplication)
 2. Nhập URL, nhấn "Go"
 3. Client tạo HttpRequest
@@ -253,8 +284,9 @@ run_client.bat
 11. Hiển thị HTML
 ```
 
-### File Dependencies:
-```
+### File Dependencies
+
+```text
 BrowserApplication.java
     ↓
 HttpClient.java
@@ -277,7 +309,7 @@ TCP Socket
 ## 🔑 KEY CONCEPTS
 
 | Concept | File | Explanation |
-|---------|------|-------------|
+| --- | --- | --- |
 | TCP Server | WebServer.java | ServerSocket, multi-threaded |
 | TCP Client | HttpClient.java | Socket, send/receive |
 | Serialization | HttpRequest, Response | Object → bytes |
@@ -289,13 +321,15 @@ TCP Socket
 
 ## 📚 VÀ CÓ THỂ TÌMTHÊM
 
-### Documentation Ngoài:
-- **Official JavaFX Docs**: https://openjfx.io/
-- **Java Networking**: https://docs.oracle.com/javase/tutorial/networking/
-- **HTTP RFC**: https://tools.ietf.org/html/rfc7230
-- **Maven**: https://maven.apache.org/
+### Documentation Ngoài
 
-### Concepts Cần Học:
+- **Official JavaFX Docs**: [https://openjfx.io/](https://openjfx.io/)
+- **Java Networking**: [https://docs.oracle.com/javase/tutorial/networking/](https://docs.oracle.com/javase/tutorial/networking/)
+- **HTTP RFC**: [https://tools.ietf.org/html/rfc7230](https://tools.ietf.org/html/rfc7230)
+- **Maven**: [https://maven.apache.org/](https://maven.apache.org/)
+
+### Concepts Cần Học
+
 - TCP/IP Networking
 - Object Serialization
 - Multi-threading
@@ -314,7 +348,7 @@ TCP Socket
 - [ ] Đọc README.md (detailed guide)
 - [ ] Đọc INSTALLATION_GUIDE.md
 - [ ] Hiểu ARCHITECTURE.md
-- [ ] Khám phá source code:
+- [ ] Khám phá source code
   - [ ] WebServer.java
   - [ ] BrowserApplication.java
   - [ ] HttpClient.java
@@ -327,16 +361,19 @@ TCP Socket
 ## 🎓 LEARNING PATH
 
 ### Level 1: User (Chạy ứng dụng)
+
 1. QUICK_START.md (5 min)
 2. Chạy 2 script
 3. Sử dụng Browser
 
 ### Level 2: Developer (Hiểu code)
+
 1. README.md (30 min)
 2. ARCHITECTURE.md (45 min)
 3. Đọc source code (60 min)
 
 ### Level 3: Advanced (Modify code)
+
 1. Add new page
 2. Modify HTML content
 3. Change styling
@@ -354,7 +391,8 @@ TCP Socket
 4. Google error message
 5. Đọc ARCHITECTURE.md để hiểu flow
 
-**Common Issues:**
+## Common Issues
+
 - Port in use → Dùng port khác
 - Java not found → Install JDK
 - Build fail → `mvn clean install`
@@ -365,6 +403,7 @@ TCP Socket
 ## 🔄 UPDATE LOG
 
 ### v1.0.0 (2026-02-24)
+
 - ✅ Initial release
 - ✅ Server with 4 pages
 - ✅ Client GUI
@@ -383,9 +422,10 @@ TCP Socket
 
 ---
 
-## 🎉 READY TO START?
+## 🎉 READY TO START
 
-### Quick Links:
+### Quick Links
+
 1. ⚡ [QUICK_START.md](QUICK_START.md) - 3 steps, run now!
 2. 📖 [README.md](README.md) - Detailed guide
 3. ⚙️ [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) - Setup help
@@ -393,4 +433,4 @@ TCP Socket
 
 ---
 
-**Have fun exploring! 🚀**
+Have fun exploring! 🚀
