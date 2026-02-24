@@ -1,0 +1,396 @@
+╔════════════════════════════════════════════════════════════════════╗
+║                     🌐 UMA BROWSER v1.0.0 🌐                       ║
+║        Web Browser sử dụng TCP & Client-Server Model               ║
+║                     (Java + JavaFX)                                ║
+╚════════════════════════════════════════════════════════════════════╝
+
+📌 THỨ NHẤT: ĐÀY LÀ GÌ?
+═══════════════════════════════════════════════════════════════════════
+
+UMA Browser là một trình duyệt web giáo dục được xây dựng hoàn toàn bằng Java,
+minh họa:
+
+  ✓ Giao thức TCP (Transmission Control Protocol)
+  ✓ Mô hình Client-Server (máy khách-máy chủ)
+  ✓ Giao diện JavaFX (hiện đại, đẹp)
+  ✓ Lập trình mạng Java (Socket, Serialization)
+  ✓ Multi-threading (xử lý đa luồng)
+  ✓ HTTP Protocol cơ bản
+
+Nó KHÔNG phải là một trình duyệt đầy đủ như Chrome/Firefox, mà là
+một ứng dụng học tập để hiểu cách thức hoạt động của mạng máy tính.
+
+
+📋 THỨ HAI: NHỮNG GÌ CÓ SẴN?
+═══════════════════════════════════════════════════════════════════════
+
+✅ WEB SERVER:
+  • Lắng nghe trên port TCP 9090
+  • Xử lý từng client trong thread riêng
+  • Cung cấp 4 trang HTML có sẵn:
+    - / (Home page)
+    - /about (Trang về chúng tôi)
+    - /contact (Liên hệ)
+    - 404 (Lỗi trang không tìm thấy)
+
+✅ HTTP CLIENT:
+  • Kết nối đến server qua TCP socket
+  • Gửi HTTP requests
+  • Nhận HTTP responses
+  • Hỗ trợ GET và POST
+
+✅ JAVAFX GUI:
+  • Toolbar (Back, Forward, Refresh, Home)
+  • Address Bar (nhập URL)
+  • Content Area (hiển thị HTML)
+  • Status Bar (trạng thái)
+  • Server selector (chuyển server)
+
+✅ DOCUMENTATION:
+  • README.md - Hướng dẫn chi tiết
+  • QUICK_START.md - Bắt đầu nhanh (3 bước)
+  • INSTALLATION_GUIDE.md - Cài đặt chi tiết
+  • ARCHITECTURE.md - Kiến trúc hệ thống
+  • INDEX.md - Danh sách files
+
+
+🚀 THỨ BA: CÁCH CHẠY?
+═══════════════════════════════════════════════════════════════════════
+
+💡 CÁCH DỄ NHẤT (lệnh 2 dòng):
+
+  1. Chạy Server:
+     cd d:\lập trình mạng\UMA-Browser_no.1
+     mvn exec:java -Dexec.mainClass="server.WebServer"
+
+  2. Mở terminal MỚI, chạy Client:
+     cd d:\lập trình mạng\UMA-Browser_no.1
+     mvn javafx:run
+
+💡 HOẶC DÙNG SCRIPT (Windows):
+
+  1. Kép đôi click:
+     run_server.bat
+
+  2. Kép đôi click:
+     run_client.bat
+
+
+📊 THỨ TƯ: CẤU TRÚC FILES
+═══════════════════════════════════════════════════════════════════════
+
+UMA-Browser_no.1/
+│
+├── 📑 Tài liệu:
+│   ├── README.md .......................... Hướng dẫn chính
+│   ├── QUICK_START.md ..................... Bắt đầu nhanh
+│   ├── INSTALLATION_GUIDE.md ............. Cài đặt chi tiết
+│   ├── ARCHITECTURE.md ................... Kiến trúc hệ thống
+│   ├── INDEX.md .......................... Danh sách files
+│   └── project_summary.txt ............... File này
+│
+├── 🔧 Script chạy:
+│   ├── run_server.bat .................... Khởi động server
+│   ├── run_client.bat .................... Khởi động client
+│   └── pom.xml ........................... Cấu hình Maven
+│
+└── 📦 Source code (src/main/java/):
+    ├── server/
+    │   └── WebServer.java ................ Server TCP, xử lý requests
+    │
+    ├── client/
+    │   ├── HttpClient.java ............... TCP client, gửi/nhận
+    │   └── BrowserApplication.java ....... GUI JavaFX
+    │
+    └── util/
+        ├── HttpRequest.java ............. Model cho request
+        └── HttpResponse.java ............ Model cho response
+
+
+🔌 THỨ NĂM: CÁCH HOẠT ĐỘNG?
+═══════════════════════════════════════════════════════════════════════
+
+Quy trình gửi/nhận dữ liệu:
+
+  USER INPUT (nhập URL, nhấn Go)
+         ↓
+  Client tạo HttpRequest object
+         ↓
+  Serialize object thành bytes (Java serialization)
+         ↓
+  Gửi bytes qua TCP socket
+         ↓ ═══════════════ NETWORK ═════════════════
+         ↓
+  Server nhận bytes
+         ↓
+  Deserialize thành HttpRequest
+         ↓
+  ClientHandler xử lý request (route path)
+         ↓
+  Generate HTML content
+         ↓
+  Tạo HttpResponse object
+         ↓
+  Serialize thành bytes
+         ↓
+  Gửi qua TCP socket
+         ↓ ═══════════════ NETWORK ═════════════════
+         ↓
+  Client nhận bytes
+         ↓
+  Deserialize thành HttpResponse
+         ↓
+  Extract HTML body
+         ↓
+  Update JavaFX TextArea
+         ↓
+  USER SEES WEBPAGE
+
+
+🎯 THỨ SÁU: THÀNH PHẦN CHÍNH
+═══════════════════════════════════════════════════════════════════════
+
+1️⃣ WebServer.java (570 dòng):
+   ┌─────────────────────────────────────────────────────┐
+   │ • ServerSocket lắng nghe port 9090                  │
+   │ • Accept client connections                         │
+   │ • Tạo ClientHandler thread cho mỗi client          │
+   │ • Xử lý requests, gửi responses                     │
+   │ • Cung cấp 4 trang HTML                            │
+   └─────────────────────────────────────────────────────┘
+
+2️⃣ HttpClient.java (80 dòng):
+   ┌─────────────────────────────────────────────────────┐
+   │ • Tạo Socket connection đến server                  │
+   │ • Serialize HttpRequest và gửi                      │
+   │ • Deserialize HttpResponse và trả về               │
+   │ • Methods: sendRequest(), get(), post()             │
+   └─────────────────────────────────────────────────────┘
+
+3️⃣ BrowserApplication.java (450 dòng):
+   ┌─────────────────────────────────────────────────────┐
+   │ • JavaFX Application chính                          │
+   │ • Tạo giao diện (Toolbar, AddressBar, Content)     │
+   │ • Xử lý user input                                  │
+   │ • Gọi HttpClient để tải trang                      │
+   │ • Update TextArea với HTML content                  │
+   └─────────────────────────────────────────────────────┘
+
+4️⃣ HttpRequest.java (110 dòng):
+   ┌─────────────────────────────────────────────────────┐
+   │ • method: String (GET, POST)                        │
+   │ • url: String (full URL)                            │
+   │ • path: String (extracted path)                     │
+   │ • headers: Map<String, String>                      │
+   │ • body: String                                      │
+   │ • Serializable để truyền qua network               │
+   └─────────────────────────────────────────────────────┘
+
+5️⃣ HttpResponse.java (90 dòng):
+   ┌─────────────────────────────────────────────────────┐
+   │ • statusCode: int (200, 404, 500, ...)             │
+   │ • statusMessage: String (OK, Not Found, ...)       │
+   │ • headers: Map<String, String>                      │
+   │ • body: String (HTML content)                       │
+   │ • Serializable để truyền qua network               │
+   └─────────────────────────────────────────────────────┘
+
+
+⚙️ THỨ BẢY: CÔNG NGHỆ DÙNG
+═══════════════════════════════════════════════════════════════════════
+
+Ngôn ngữ & Framework:
+  • Java 11+ (ngôn ngữ lập trình chính)
+  • JavaFX 21.0.1 (giao diện GUI)
+  • Maven 3.6+ (build tool)
+
+Giao thức & Library:
+  • TCP/IP (networking protocol)
+  • Java Socket API (networking)
+  • Java Serialization (object transmission)
+  • HTTP Protocol (application layer)
+
+Mô hình:
+  • Client-Server architecture
+  • Multi-threading (mỗi client = 1 thread)
+  • Object-Oriented Programming
+
+
+📚 THỨ TÁM: KHÁI NIỆM CẦN HIỂU
+═══════════════════════════════════════════════════════════════════════
+
+TCP (Transmission Control Protocol):
+  • Giao thức liên kết tin cậy
+  • Có thiết lập kết nối trước (3-way handshake)
+  • Đảm bảo dữ liệu không mất, đúng thứ tự
+  • Java: ServerSocket, Socket
+
+Client-Server Model:
+  • Server: chờ kết nối, phục vụ requests
+  • Client: chủ động kết nối, gửi requests
+  • Một server có thể phục vụ nhiều clients
+
+Serialization:
+  • Chuyển Java object thành byte stream
+  • ObjectOutputStream: object → bytes
+  • ObjectInputStream: bytes → object
+  • Dùng để truyền objects qua network
+
+HTTP Protocol:
+  • Application layer protocol trên TCP
+  • Request: METHOD PATH VERSION HEADERS BODY
+  • Response: VERSION STATUS HEADERS BODY
+  • Methods: GET, POST, PUT, DELETE, ...
+
+Multi-threading:
+  • Mỗi client được xử lý trong thread khác
+  • Không block server, có thể xử lý multiple clients
+  • Thread safety: synchronized, volatile, ...
+
+
+💰 THỨ CHÍN: YÊU CẦU HỆ THỐNG
+═══════════════════════════════════════════════════════════════════════
+
+Tối thiểu:
+  • JDK 11 hoặc cao hơn
+  • Maven 3.6.3 hoặc cao hơn
+  • Windows/Mac/Linux
+  • ≥ 2GB RAM
+  • ≥ 1GB ổ cứng
+
+Khuyến cáo:
+  • JDK 21 (LTS)
+  • Maven 3.9.5+
+  • IDE: IntelliJ IDEA, Visual Studio Code, Eclipse
+  • Connection mạng (để tải Maven dependencies)
+
+
+🎮 THỨ MƯỜI: CON ĐỘC LẬP
+═══════════════════════════════════════════════════════════════════════
+
+Chạy ngay bây giờ?
+  👉 Đọc: QUICK_START.md (5 phút)
+  👉 Chạy: run_server.bat
+  👉 Chạy: run_client.bat
+
+Muốn cài đặt chi tiết?
+  👉 Đọc: INSTALLATION_GUIDE.md (30 phút)
+  👉 Thực hiện từng bước
+  👉 Kiểm tra các lệnh verify
+
+Muốn hiểu kiến trúc?
+  👉 Đọc: ARCHITECTURE.md (1 giờ)
+  👉 Nghiên cứu sơ đồ
+  👉 Trace data flow
+  👉 Đọc corresponding source code
+
+Muốn hiểu code?
+  👉 Đọc: README.md (chi tiết)
+  👉 Mở IDE, xem source
+  👉 Set breakpoint, debug
+  👉 Modify code, rebuild, test
+
+
+🛠️ THỨ MƯỜI MỘT: CÓ THỂCẢI TIẾN
+═══════════════════════════════════════════════════════════════════════
+
+Tính năng có thể thêm:
+  □ Real HTML rendering (WebView thay TextArea)
+  □ CSS & JavaScript support
+  □ Cookie & Session management
+  □ Download file support
+  □ Browser history (Back/Forward)
+  □ Bookmarks
+  □ Search bar
+  □ HTTPS/SSL encryption
+  □ Proxy support
+  □ Connection pooling
+  □ Response caching
+  □ Database backend
+  □ Load balancing
+  □ Compression (gzip)
+  □ Authentication
+
+
+🐛 THỨ MƯỜI HAI: NẾU CÓ LỖI
+═══════════════════════════════════════════════════════════════════════
+
+Kiểm tra theo thứ tự:
+
+  1. Java/Maven có cài không?
+     java -version
+     mvn --version
+
+  2. Dependencies đã tải?
+     mvn clean install
+
+  3. Server chạy được?
+     mvn exec:java -Dexec.mainClass="server.WebServer"
+
+  4. Port 9090 bị chiếm?
+     netstat -ano | findstr :9090
+     (hoặc dùng port khác: mvn exec:java ... -Dexec.args="8080")
+
+  5. Client kết nối được?
+     mvn javafx:run
+     (Server phải chạy trước!)
+
+  6. Xem chi tiết error?
+     mvn clean install -X
+     (thêm -e flag cho verbose output)
+
+👉 Chi tiết xem: INSTALLATION_GUIDE.md (Troubleshooting section)
+
+
+📞 THỨ MƯỜI BA: LIÊN HỆ & TRỢ GIÚP
+═══════════════════════════════════════════════════════════════════════
+
+Không hiểu?
+  👉 Đọc README.md (hướng dẫn đầy đủ)
+  👉 Đọc QUICK_START.md (bắt đầu nhanh)
+  👉 Xem ARCHITECTURE.md (kiến trúc chi tiết)
+
+Gặp lỗi?
+  👉 Xem INSTALLATION_GUIDE.md (Troubleshooting)
+  👉 Google error message
+  👉 Xem console output kỹ
+  👉 Thử mvn clean install lại
+
+Muốn tìm hiểu thêm?
+  👉 Java Networking: https://docs.oracle.com/javase/tutorial/networking/
+  👉 JavaFX: https://openjfx.io/
+  👉 TCP/IP: https://en.wikipedia.org/wiki/TCP/IP_model
+  👉 HTTP: https://tools.ietf.org/html/rfc7230
+
+
+🎉 THỨ MƯỜI BỐN: TỔNG KẾT
+═══════════════════════════════════════════════════════════════════════
+
+✅ Bạn đã có một trình duyệt web hoàn chỉnh!
+
+Bao gồm:
+  ✓ Web Server với TCP networking
+  ✓ HTTP Client với object serialization
+  ✓ JavaFX GUI với các controls
+  ✓ Multi-threaded architecture
+  ✓ 4 trang HTML có sẵn
+  ✓ Đầy đủ tài liệu (5 files)
+  ✓ Sẵn sàng học tập & mở rộng
+
+Tiếp theo bạn có thể:
+  • Thêm trang mới
+  • Thay đổi nội dung HTML
+  • Thêm xử lý POST
+  • Render HTML thực sự
+  • Kết nối database
+  • Thêm authentication
+  • Deploy lên server thực
+
+Happy Learning! 🚀🌐
+
+
+═══════════════════════════════════════════════════════════════════════
+File: project_summary.txt
+Date: 2026-02-24
+Version: UMA Browser v1.0.0
+═══════════════════════════════════════════════════════════════════════

@@ -1,0 +1,356 @@
+📂 UMA-Browser_no.1 - Cấu Trúc Thư Mục Hoàn Chỉnh
+═══════════════════════════════════════════════════════════════════
+
+UMA-Browser_no.1/
+│
+├─── 📑 DOCUMENTATION (6 files)
+│    │
+│    ├─── README.md
+│    │    📊 Hướng dẫn chính
+│    │    - Mô tả dự án
+│    │    - Kiến trúc system
+│    │    - Yêu cầu hệ thống
+│    │    - Cách chạy (bước-bước)
+│    │    - Khái niệm mạng
+│    │    - Kiểm thử chức năng
+│    │    - Mở rộng tính năng
+│    │    (2,500+ words)
+│    │
+│    ├─── QUICK_START.md
+│    │    ⚡ Hướng dẫn bắt đầu nhanh
+│    │    - Yêu cầu (kiểm tra)
+│    │    - 3 bước chạy
+│    │    - Test ngay
+│    │    - Troubleshooting
+│    │    (300 words)
+│    │
+│    ├─── INSTALLATION_GUIDE.md
+│    │    🔧 Cài đặt chi tiết
+│    │    - Kiểm tra yêu cầu
+│    │    - Cài JDK (Windows, Mac, Linux)
+│    │    - Cài Maven (Windows, Mac, Linux)
+│    │    - Cài dependencies
+│    │    - Chạy ứng dụng
+│    │    - Xác minh cài đặt
+│    │    - Xử lý sự cố
+│    │    - Checklist cài đặt
+│    │    (3,000+ words)
+│    │
+│    ├─── ARCHITECTURE.md
+│    │    🏗️ Kiến trúc hệ thống
+│    │    - Sơ đồ kiến trúc tổng thể
+│    │    - Thành phần chi tiết
+│    │    - Luồng gửi/nhận data
+│    │    - TCP communication
+│    │    - Object serialization
+│    │    - Class diagram
+│    │    - Thread safety
+│    │    - Protocol details
+│    │    (3,500+ words)
+│    │
+│    ├─── EXAMPLES.md
+│    │    💡 Ví dụ & Mở rộng
+│    │    - Ví dụ cơ bản
+│    │    - Thêm trang mới
+│    │    - Thêm POST handler
+│    │    - Style HTML
+│    │    - Thay đổi GUI
+│    │    - Nâng cao (caching, SSL, database)
+│    │    (2,000+ words)
+│    │
+│    └─── INDEX.md
+│         📑 Danh sách files
+│         - Cấu trúc dự án
+│         - Tài liệu chi tiết
+│         - Source code files
+│         - Configuration
+│         - Scripts
+│         - Learning path
+│         (1,500+ words)
+│
+│
+├─── 🔧 CONFIGURATION & SCRIPTS (3 files)
+│    │
+│    ├─── pom.xml
+│    │    📦 Maven configuration
+│    │    - Project metadata
+│    │    - Java 11 target
+│    │    - JavaFX 21.0.1 dependency
+│    │    - Plugins (compiler, maven-exec, javafx)
+│    │    - Build settings
+│    │    (90 lines)
+│    │
+│    ├─── run_server.bat
+│    │    🖥️ Server startup script (Windows)
+│    │    - Java & Maven verification
+│    │    - Auto-compile if needed
+│    │    - Start server on port 9090
+│    │    - Informative messages
+│    │    (50 lines)
+│    │
+│    └─── run_client.bat
+│         🌐 Client startup script (Windows)
+│         - Java & Maven verification
+│         - Auto-compile if needed
+│         - Start JavaFX GUI
+│         - Warning messages
+│         (50 lines)
+│
+│
+└─── 📦 SOURCE CODE (src/main/java/)
+     │
+     ├─── server/
+     │    │
+     │    └─── WebServer.java (570 lines)
+     │         🖥️ TCP Web Server
+     │         
+     │         Public Classes:
+     │         ├── WebServer
+     │         │   - port: int
+     │         │   - serverSocket: ServerSocket
+     │         │   - running: boolean
+     │         │   - start(): void
+     │         │   - stop(): void
+     │         │   - main(String[]): void
+     │         │
+     │         └── ClientHandler (inner, Runnable)
+     │             - clientSocket: Socket
+     │             - run(): void
+     │             - handleRequest(HttpRequest): HttpResponse
+     │             - getHomePage(): HttpResponse
+     │             - getAboutPage(): HttpResponse
+     │             - getContactPage(): HttpResponse
+     │             - get404Page(String): HttpResponse
+     │             - getCurrentDateTime(): String
+     │
+     │         Features:
+     │         ├── Listens on TCP port 9090
+     │         ├── Accepts multiple clients
+     │         ├── Multi-threaded handling (one thread per client)
+     │         ├── Deserializes HttpRequest objects
+     │         ├── Routes requests by path:
+     │         │   ├── "/" → Home page
+     │         │   ├── "/about" → About page
+     │         │   ├── "/contact" → Contact page
+     │         │   └── other → 404 page
+     │         ├── Generates HTML responses
+     │         ├── Serializes HttpResponse objects
+     │         ├── Proper error handling
+     │         └── Clean connection closure
+     │
+     │         HTML Pages Included:
+     │         ├── Home: Welcome message with navigation
+     │         ├── About: Project info
+     │         ├── Contact: Contact information
+     │         └── 404: Not found error page
+     │
+     │         Styling: Embedded CSS in each HTML
+     │         ├── Background colors
+     │         ├── Font styling
+     │         ├── Link formatting
+     │         └── Responsive layout
+     │
+     │
+     ├─── client/
+     │    │
+     │    ├─── HttpClient.java (80 lines)
+     │    │    🌐 TCP HTTP Client
+     │    │    
+     │    │    Public Class:
+     │    │    ├── HttpClient
+     │    │    │   - host: String
+     │    │    │   - port: int
+     │    │    │   - HttpClient(host, port): constructor
+     │    │    │   - sendRequest(HttpRequest): HttpResponse
+     │    │    │   - get(String url): HttpResponse
+     │    │    │   - post(String url, String body): HttpResponse
+     │    │    │
+     │    │    Features:
+     │    │    ├── Creates Socket connection to server
+     │    │    ├── Serializes HttpRequest objects
+     │    │    ├── Sends via ObjectOutputStream
+     │    │    ├── Receives HttpResponse via ObjectInputStream
+     │    │    ├── Exception handling (IOException, ClassNotFoundException)
+     │    │    └── Clean socket closure
+     │    │
+     │    │
+     │    └─── BrowserApplication.java (450 lines)
+     │         🎨 JavaFX Browser GUI
+     │         
+     │         Public Class:
+     │         ├── BrowserApplication extends Application
+     │         │   - httpClient: HttpClient
+     │         │   - urlBar: TextField
+     │         │   - contentArea: TextArea
+     │         │   - statusLabel: Label
+     │         │   - serverSelector: ComboBox
+     │         │   - start(Stage primaryStage): void
+     │         │
+     │         UI Components:
+     │         ├── Toolbar
+     │         │   ├── Back button
+     │         │   ├── Forward button
+     │         │   ├── Refresh button
+     │         │   ├── Home button
+     │         │   ├── Server selector (localhost:9090, 8080, 3000)
+     │         │   └── Styling
+     │         │
+     │         ├── Address Bar
+     │         │   ├── URL TextField
+     │         │   ├── Go button
+     │         │   └── Enter key handler
+     │         │
+     │         ├── Content Area
+     │         │   └── TextArea (displays HTML)
+     │         │
+     │         └── Status Bar
+     │             └── Status Label
+     │
+     │         Features:
+     │         ├── Window size: 1000x700
+     │         ├── Load pages from URL
+     │         ├── Multi-threaded loading (no UI blocking)
+     │         ├── Display HTML content
+     │         ├── Error handling & alerts
+     │         ├── Server switching
+     │         ├── Status updates
+     │         └── Clean UI layout
+     │
+     │         Methods (Private):
+     │         ├── createUI()
+     │         ├── createToolbar()
+     │         ├── createAddressBar()
+     │         ├── createContentArea()
+     │         ├── createStatusBar()
+     │         ├── loadPage(url)
+     │         ├── loadPageFromBar()
+     │         ├── updateServerConnection()
+     │         └── showAlert(title, message)
+     │
+     │
+     └─── util/
+          │
+          ├─── HttpRequest.java (110 lines)
+          │    📨 HTTP Request Model
+          │    
+          │    Public Class:
+          │    ├── HttpRequest implements Serializable
+          │    │   - method: String (GET, POST, etc.)
+          │    │   - url: String (full URL)
+          │    │   - path: String (extracted path)
+          │    │   - httpVersion: String (HTTP/1.1)
+          │    │   - headers: Map<String, String>
+          │    │   - body: String
+          │    │   - HttpRequest()
+          │    │   - HttpRequest(method, url)
+          │    │
+          │    Methods:
+          │    ├── extractPath(url): String
+          │    ├── addHeader(key, value): void
+          │    ├── getters/setters for all fields
+          │    └── toString(): String
+          │
+          │    Purpose: Represent HTTP request for network transmission
+          │
+          │
+          └─── HttpResponse.java (90 lines)
+               📨 HTTP Response Model
+               
+               Public Class:
+               ├── HttpResponse implements Serializable
+               │   - statusCode: int (200, 404, 500, etc.)
+               │   - statusMessage: String (OK, Not Found, etc.)
+               │   - httpVersion: String (HTTP/1.1)
+               │   - headers: Map<String, String>
+               │   - body: String (HTML content)
+               │   - HttpResponse()
+               │   - HttpResponse(code, message, body)
+               │
+               Methods:
+               ├── addHeader(key, value): void
+               ├── getters/setters for all fields
+               └── toString(): String
+               
+               Purpose: Represent HTTP response for network transmission
+
+
+═══════════════════════════════════════════════════════════════════
+
+📊 STATISTICS
+═════════════════════════════════════════════════════════════════════
+
+Source Code:
+  • Total Lines of Code: ~1,500
+  • Java Classes: 5
+    - 1 Server class
+    - 2 Client classes
+    - 2 Utility data model classes
+  • Methods: 50+
+  • Avg method length: 20 lines
+
+Documentation:
+  • Total Pages: 6 markdown files
+  • Total Words: 15,000+
+  • Code examples: 30+
+  • Diagrams: 10+
+
+Configuration:
+  • Build tool: Maven 3.6.3+
+  • Java target: JDK 11+
+  • JavaFX version: 21.0.1
+  • Server port: 9090 (configurable)
+
+File Sizes:
+  • pom.xml: ~90 lines
+  • WebServer.java: ~570 lines
+  • BrowserApplication.java: ~450 lines
+  • HttpClient.java: ~80 lines
+  • HttpRequest.java: ~110 lines
+  • HttpResponse.java: ~90 lines
+  • Total Java: ~1,390 lines
+  • Total Documentation: 15,000+ words
+
+
+🎯 QUICK REFERENCE
+═════════════════════════════════════════════════════════════════════
+
+Start Server:
+  $ mvn exec:java -Dexec.mainClass="server.WebServer"
+  or
+  $ run_server.bat
+
+Start Client:
+  $ mvn javafx:run
+  or
+  $ run_client.bat
+
+Available Pages:
+  • http://localhost:9090/
+  • http://localhost:9090/about
+  • http://localhost:9090/contact
+  • http://localhost:9090/notfound (any other path)
+
+Key Technologies:
+  • TCP/IP networking (Socket API)
+  • Object serialization/deserialization
+  • Multi-threading (ServerThreads)
+  • JavaFX UI framework
+  • Maven build system
+  • HTTP protocol fundamentals
+
+Learning Topics:
+  1. Network communication basics
+  2. Client-Server architecture
+  3. TCP protocol fundamentals
+  4. Thread safety and concurrency
+  5. JavaFX GUI development
+  6. Maven project management
+  7. Java serialization
+  8. HTTP protocol basics
+
+
+═══════════════════════════════════════════════════════════════════
+Created: 2026-02-24
+Version: UMA Browser v1.0.0
+Status: Complete & Ready to Use
+═══════════════════════════════════════════════════════════════════
