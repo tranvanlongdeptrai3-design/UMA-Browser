@@ -11,14 +11,20 @@ UMA-Browser_no.1/
 │
 ├── 📄 Tài Liệu (Documentation)
 │   ├── README.md                    ← Hướng dẫn chính
-│   ├── QUICK_START.md               ← Bắt đầu nhanh (3 bước)
+│   ├── QUICK_START.md               ← Bắt đầu nhanh (1 thao tác)
+│   ├── ONE_CLICK_STARTUP.md         ← Chi tiết khởi động một cách
+│   ├── STARTUP.md                   ← Menu tương tác
 │   ├── INSTALLATION_GUIDE.md        ← Cài đặt chi tiết
 │   ├── ARCHITECTURE.md              ← Kiến trúc hệ thống
 │   └── INDEX.md                     ← File này
 │
 ├── 🔧 Script Chạy (Scripts)
-│   ├── run_server.bat               ← Chạy Server (Windows)
-│   ├── run_client.bat               ← Chạy Client (Windows)
+│   ├── start-all.bat                ← ⭐ Khởi động cả Server+Client (Windows)
+│   ├── start.bat                    ← Menu tương tác (Windows)
+│   ├── start-all.sh                 ← ⭐ Khởi động cả Server+Client (Mac/Linux)
+│   ├── start.sh                     ← Menu tương tác (Mac/Linux)
+│   ├── run_server.bat               ← Chỉ Server (Windows)
+│   ├── run_client.bat               ← Chỉ Client (Windows)
 │   └── pom.xml                      ← Maven configuration
 │
 └── 📦 Source Code
@@ -42,7 +48,11 @@ UMA-Browser_no.1/
 
 ### 🚀 Để bắt đầu lập tức
 
-👉 [QUICK_START.md](QUICK_START.md) - Chỉ 3 bước, 5 phút!
+👉 [QUICK_START.md](QUICK_START.md) - Chỉ 1 thao tác! Double-click `start-all.bat`
+
+### 🎯 Để khởi động tự động
+
+👉 [ONE_CLICK_STARTUP.md](ONE_CLICK_STARTUP.md) - Chi tiết cách khởi động một cách
 
 ### 📖 Để hiểu chi tiết
 
@@ -217,32 +227,67 @@ Maven Project Object Model
 
 ## 🚀 SCRIPT FILES
 
-### run_server.bat
+### start-all.bat (Windows - Khuyên dùng)
 
-**Để:** Chạy Web Server trên Windows
+**Để:** Khởi động Server + Client tự động
 
 **Làm:**
 
-1. Kiểm tra Java & Maven
-2. Compile (nếu cần)
-3. Chạy server
+1. Build dependencies (nếu cần)
+2. Khởi động Server (cửa sổ mới)
+3. Chờ 5 giây
+4. Khởi động Client (cửa sổ hiện tại)
+5. Hỏi có đóng server khi client tắt
 
 **Cách dùng:**
 
 ```bash
-cd d:\lập trình mạng\UMA-Browser_no.1
+Double-click start-all.bat
+```
+
+### start-all.sh (Mac/Linux - Khuyên dùng)
+
+**Để:** Khởi động Server + Client tự động
+
+**Cách dùng:**
+
+```bash
+bash start-all.sh
+```
+
+### start.bat (Windows - Menu tương tác)
+
+**Để:** Menu chọn (Server, Client, Both, Build)
+
+**Cách dùng:**
+
+```bash
+start.bat
+```
+
+### start.sh (Mac/Linux - Menu tương tác)
+
+**Để:** Menu chọn (Server, Client, Both, Build)
+
+**Cách dùng:**
+
+```bash
+bash start.sh
+```
+
+### run_server.bat (Windows)
+
+**Để:** Chạy chỉ Server
+
+**Cách dùng:**
+
+```bash
 run_server.bat
 ```
 
-### run_client.bat
+### run_client.bat (Windows)
 
-**Để:** Chạy Browser Client trên Windows
-
-**Làm:**
-
-1. Kiểm tra Java & Maven
-2. Compile (nếu cần)
-3. Chạy client GUI
+**Để:** Chạy chỉ Client
 
 **Cách dùng:**
 

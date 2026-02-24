@@ -10,6 +10,18 @@ UMA Browser là một trình duyệt web được xây dựng bằng Java, sử 
 
 ---
 
+## ⚡ BẮT ĐẦU NHANH (1 Thao Tác)
+
+**Windows:** Double-click `start-all.bat`  
+**Mac/Linux:** `bash start-all.sh`
+
+✅ Server + Client khởi động tự động!  
+⏱️ Thời gian: ~30 giây (lần đầu: 2-3 phút)
+
+👉 Chi tiết: Xem [ONE_CLICK_STARTUP.md](ONE_CLICK_STARTUP.md)
+
+---
+
 ## 🏗️ Kiến Trúc Dự Án
 
 ```

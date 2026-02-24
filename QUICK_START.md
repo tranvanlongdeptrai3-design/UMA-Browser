@@ -1,6 +1,18 @@
 # ⚡ QUICK START - SỬ DỤNG NHANH
 
-*Chỉ có 3 bước để chạy UMA Browser - bắt đầu ngay!*
+*Chỉ có 1 thao tác để chạy UMA Browser!*
+
+---
+
+## 🎯 CÁCH NHANH NHẤT (Khuyên dùng)
+
+### Chỉ Double-click 1 file:
+
+**Windows:** `start-all.bat`  
+**Mac/Linux:** `bash start-all.sh`
+
+✅ Server và Client khởi động tự động!  
+⏱️ Thời gian: ~30 giây (lần đầu: 2-3 phút)
 
 ---
 
@@ -15,7 +27,7 @@ Nếu không có, đọc [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md)
 
 ---
 
-## 🚀 3 BƯỚC CHẠY NHANH
+## 🚀 3 BƯỚC (Nếu muốn chạy manual)
 
 ### ✅ BƯỚC 1: Tải Dependencies
 
