@@ -46,7 +46,7 @@ echo   5️⃣  Xem Hướng Dẫn
 echo   6️⃣  Thoát
 echo.
 
-set /p choice="👉 Nhập lựa chọn (1-6): "
+set /p choice=👉 Nhập lựa chọn [1-6]: 
 
 if "%choice%"=="1" goto start_server
 if "%choice%"=="2" goto start_client

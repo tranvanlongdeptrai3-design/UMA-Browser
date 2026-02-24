@@ -70,7 +70,7 @@ REM Nếu client đóng, hỏi có muốn đóng server không
 echo.
 echo 📋 Client đã đóng.
 echo.
-set /p choice="Đóng server? (Y/N): "
+set /p choice=Đóng server? [Y/N]: 
 if /i "%choice%"=="y" (
     echo ✅ Đóng server...
     taskkill /FI "WINDOWTITLE eq UMA Browser - SERVER" /T /F >nul 2>nul
