@@ -178,6 +178,7 @@ mvn javafx:run
 | `http://localhost:9090/` | Trang chủ |
 | `http://localhost:9090/about` | Trang thông tin |
 | `http://localhost:9090/contact` | Trang liên hệ |
+| `http://localhost:9090/chapter` | Đọc chương trình - Hướng dẫn chi tiết |
 | Các URL khác | Sẽ trả về Error 404 |
 
 ### **Cách Điều Hướng:**

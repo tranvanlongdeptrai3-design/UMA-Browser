@@ -89,6 +89,7 @@ Máy chủ TCP lắng nghe port 9090
 - `/` - Trang chủ
 - `/about` - Về chúng tôi
 - `/contact` - Liên hệ
+- `/chapter` - Đọc chương trình (Hướng dẫn chi tiết)
 - `/notfound` - Error 404
 
 **Class chính:**
